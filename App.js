@@ -17,7 +17,10 @@ import {
   X
 } from 'lucide-react';
 
-const apiKey = ""; // Environment provided key
+// const apiKey = ""; // Environment provided key
+
+// This tells React to look for a variable named REACT_APP_GEMINI_KEY
+const apiKey = process.env.REACT_APP_GEMINI_KEY;
 
 // --- Helper: Gemini API Client ---
 async function callGemini(prompt, systemPrompt, imageData = null) {
