@@ -1,4 +1,3 @@
-```react
 import React, { useState, useRef, useEffect } from 'react';
 import { 
   Camera, 
@@ -16,8 +15,6 @@ import {
   Info,
   X
 } from 'lucide-react';
-
-// const apiKey = ""; // Environment provided key
 
 const apiKey = process.env.REACT_APP_GEMINI_KEY;
 
@@ -98,7 +95,6 @@ const App = () => {
     setError(null);
     setIsCameraActive(true);
     
-    // Short timeout to ensure video element is rendered
     setTimeout(async () => {
       try {
         const constraints = { 
@@ -114,9 +110,8 @@ const App = () => {
         
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
-          // Crucial for mobile browsers
-          videoRef.current.setAttribute("playsinline", true); 
-          videoRef.current.setAttribute("muted", true);
+          videoRef.current.setAttribute("playsinline", "true"); 
+          videoRef.current.setAttribute("muted", "true");
           await videoRef.current.play();
         }
       } catch (err) {
@@ -171,7 +166,8 @@ const App = () => {
       const prompt = `Modernize this code: ${code}\n\nUser Instructions: ${instructions}`;
       const responseText = await callGemini(prompt, systemPrompt);
       const cleanJson = responseText.replace(/```json|```/g, '').trim();
-      setResult(JSON.parse(cleanJson));
+      const parsed = JSON.parse(cleanJson);
+      setResult(parsed);
       setStep('result');
     } catch (err) {
       setError("Transformation failed. Please check the code structure.");
@@ -369,6 +365,3 @@ const App = () => {
 };
 
 export default App;
-
-```
-         
